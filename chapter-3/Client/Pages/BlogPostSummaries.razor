@@ -1,13 +1,24 @@
 ﻿@page "/blogposts"
 @inject BlogPostSummaryService service
+@inject NavigationManager navigationManager
 <PageTitle>Blog posts</PageTitle>
 <h1>Blog Posts</h1>
 @if (service.Summaries is null) {
 	<div>Loading...</div>
 }
 else {
-	foreach(var blogPostSummary in service.Summaries.OrderByDescending(bps => bps.PublishedDate)) {
-		<div>@blogPostSummary.Title</div>
+	foreach (var blogPostSummary in service.Summaries.OrderByDescending(bps => bps.PublishedDate)) {
+		<article @onclick="()=>Navigate(blogPostSummary.Id,blogPostSummary.Author)">
+			<h2>@blogPostSummary.Title</h2>
+			<div>
+				@foreach (var tag in blogPostSummary.Tags) {
+					<em>@tag, </em>
+					<div>
+						@((MarkupString)Markdown.ToHtml(blogPostSummary.BlogPostMarkdown))
+					</div>
+				}
+			</div>
+		</article>
 	}
 }
 
@@ -16,4 +27,5 @@ else {
 	{
 		await service.LoadBlogPostSummaries();
 	}
+	void Navigate(Guid id, string author) => navigationManager.NavigateTo($"/blogposts/{author}/{id}");
 }
