@@ -4,5 +4,8 @@
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "CosmosDbConnectionString": "AccountEndpoint=https://beginning-swa-rg-alex.documents.azure.com:443/;AccountKey=Jbsduu6IQX8RXnuz2OSzWZDkIyFz10Rx576eTC8Pk4nKpTbRU2q6jxIhLj90Z7bNYfJspIoWPaghACDbJhKv7A==;"
+  },
+  "Host": {
+    "CORS": "*"
   }
 }
