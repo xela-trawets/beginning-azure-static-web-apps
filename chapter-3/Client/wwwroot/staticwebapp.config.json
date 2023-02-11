@@ -1,10 +1,4 @@
 {
-  "routes": [
-    {
-      "route": "/.auth/*",
-      "statusCode": 404
-    }
-  ],
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": [
