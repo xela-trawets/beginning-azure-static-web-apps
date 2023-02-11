@@ -22,5 +22,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 //});
 builder.Services.AddScoped<BlogPostSummaryService>();
 builder.Services.AddScoped<BlogPostService>();
+builder.Services.AddStaticWebAppsAuthentication();
 
 await builder.Build().RunAsync();
