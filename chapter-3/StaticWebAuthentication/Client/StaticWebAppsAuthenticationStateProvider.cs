@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Components.Authorization;
 
-using StaticWebAuthentication.Models;
+using StaticWebAppAuthentication.Models;
 
-namespace StaticWebAuthentication.Client;
+namespace StaticWebAppAuthentication.Client;
 
 public class StaticWebAppsAuthenticationStateProvider : AuthenticationStateProvider
 {

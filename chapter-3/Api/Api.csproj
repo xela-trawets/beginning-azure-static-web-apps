@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\StaticWebAuthentication\StaticWebAuthentication.csproj" />
+    <ProjectReference Include="..\StaticWebAuthentication\StaticWebAppAuthentication.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

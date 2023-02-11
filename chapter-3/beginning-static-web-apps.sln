@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{63D5AED7-074E-4FA3-B152-B8B90890F57F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticWebAuthentication", "StaticWebAuthentication\StaticWebAuthentication.csproj", "{A6C97240-8F6B-4735-90FE-274CD0801E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticWebAppAuthentication", "StaticWebAuthentication\StaticWebAppAuthentication.csproj", "{A6C97240-8F6B-4735-90FE-274CD0801E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

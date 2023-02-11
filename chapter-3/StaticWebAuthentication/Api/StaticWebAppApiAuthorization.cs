@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
 
-using StaticWebAuthentication.Models;
+using StaticWebAppAuthentication.Models;
 
-namespace StaticWebAuthentication.Api;
+namespace StaticWebAppAuthentication.Api;
 
 public class StaticWebAppApiAuthorization
 {

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace StaticWebAuthentication.Client;
+namespace StaticWebAppAuthentication.Client;
 
-public static class StaticWebAuthenticationExtensions
+public static class StaticWebAppAuthenticationExtensions
 {
 	public static IServiceCollection AddStaticWebAppsAuthentication(this IServiceCollection services)
 	{
