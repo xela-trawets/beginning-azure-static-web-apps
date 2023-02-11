@@ -8,7 +8,8 @@
 }
 else {
 	foreach (var blogPostSummary in service.Summaries.OrderByDescending(bps => bps.PublishedDate)) {
-		<article @onclick="()=>Navigate(blogPostSummary.Id,blogPostSummary.Author)">
+		<BlogPostSummary Summary="@blogPostSummary" />
+		@*		<article @onclick="()=>Navigate(blogPostSummary.Id,blogPostSummary.Author)">
 			<h2>@blogPostSummary.Title</h2>
 			<div>
 				@foreach (var tag in blogPostSummary.Tags) {
@@ -19,6 +20,7 @@ else {
 				}
 			</div>
 		</article>
+*@
 	}
 }
 
