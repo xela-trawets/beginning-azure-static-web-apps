@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\StaticWebAuthentication\StaticWebAuthentication.csproj" />
   </ItemGroup>
 
 </Project>

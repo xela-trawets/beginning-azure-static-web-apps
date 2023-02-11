@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaticWebAuthentication.Models
+namespace StaticWebAuthentication.Models;
+
+public class AuthenticationData
 {
-	public class AuthenticationData
-	{
-		public ClientPrincipal ClientPrincipal { get; set; }
-	}
+	public ClientPrincipal ClientPrincipal { get; set; }
 }

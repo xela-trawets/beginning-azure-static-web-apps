@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaticWebAuthentication.Models
+namespace StaticWebAuthentication.Models;
+
+public class ClientPrincipal
 {
-	public class ClientPrincipal
-	{
-		public string IdentityProvider { get; set; }
-		public string UserId { get; set; }
-		public string UserDetails { get; set; }
-		public IEnumerable<string> UserRoles { get; set; }
-	}
+	public string IdentityProvider { get; set; }
+	public string UserId { get; set; }
+	public string UserDetails { get; set; }
+	public IEnumerable<string> UserRoles { get; set; }
 }
