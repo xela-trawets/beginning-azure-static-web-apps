@@ -1,2 +1,16 @@
 {
+  "routes": [
+    {
+      "route": "/.auth/*",
+      "statusCode": 404
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "index.html",
+    "exclude": [
+      "/images/*.{png,jpg,gif}",
+      "/css/*",
+      "/api/*"
+    ]
+  }
 }
