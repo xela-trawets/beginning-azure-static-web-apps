@@ -20,7 +20,8 @@ public class BlogPostService
 	{
 		BlogPost? blogPost = blogPostCache.FirstOrDefault(bp => bp.Id == blogPostId && bp.Author == author);
 		if (blogPost is null) {
-			var result = await http.GetAsync($"http://localhost:7071/api/blogposts/{author}/{blogPostId}");
+			//var result = await http.GetAsync($"http://localhost:7071/api/blogposts/{author}/{blogPostId}");
+			var result = await http.GetAsync($"api/blogposts/{author}/{blogPostId}");
 			if (!result.IsSuccessStatusCode) { navigationManager.NavigateTo("404"); return null; }
 			blogPost = await result.Content.ReadFromJsonAsync<BlogPost>();
 			if (blogPost is null) { navigationManager.NavigateTo("404"); return null; }

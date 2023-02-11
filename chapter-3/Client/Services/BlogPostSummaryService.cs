@@ -17,8 +17,8 @@ public class BlogPostSummaryService
 	{
 		if (Summaries == null) {
 
-			Summaries = await http.GetFromJsonAsync<List<BlogPost>>("http://localhost:7071/api/blogposts");
-			//Summaries = await http.GetFromJsonAsync<List<BlogPost>>("api/blogposts");
+			//Summaries = await http.GetFromJsonAsync<List<BlogPost>>("http://localhost:7071/api/blogposts");
+			Summaries = await http.GetFromJsonAsync<List<BlogPost>>("api/blogposts");
 		}
 	}
 }
