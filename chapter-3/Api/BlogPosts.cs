@@ -120,7 +120,7 @@ WHERE c.Status = 2")]IEnumerable<BlogPost> BlogPosts, //case..
 				.GetContainer("BlogContainer");
 			await container
 				.DeleteItemAsync<BlogPost>(id, new PartitionKey(author));
-			return NoContentResult();
+			return new NoContentResult();
 		}
 
 		[FunctionName($"{nameof(BlogPosts)}_GetId")]
