@@ -36,7 +36,7 @@ else {
 	protected override async Task OnInitializedAsync()
 	{
 		UserInfo = await GetUserInfo();
-		//await service.LoadBlogPostSummaries();
+		await service.LoadBlogPostSummaries();
 	}
 	private async Task<string> GetUserInfo()
 	{
