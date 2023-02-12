@@ -36,7 +36,6 @@ public class BlogPostSummaryService
 	public void Replace(BlogPost blogPost)
 	{
 		ArgumentNullException.ThrowIfNull(blogPost, nameof(blogPost));
-		int index = blogPostCache.FindIndex(
 		if (Summaries == null ||
 			Summaries.Any(bp => blogPost.Id == blogPost.Id && blogPost.Author == blogPost.Author)) { return; }
 		var summary = Summaries.Find(summary => summary.Id == blogPost.Id && summary.Author == blogPost.Author);

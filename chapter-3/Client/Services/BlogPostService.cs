@@ -46,6 +46,20 @@ public class BlogPostService
 		BlogPost? savedBlogPost = await result.Content.ReadFromJsonAsync<BlogPost>();
 		blogPostCache.Add(savedBlogPost!);
 		blogPostSummaryService.Add(savedBlogPost);
-		return savedBlogPost;
+		return savedBlogPost!;
+	}
+	public async Task Update(BlogPost blogPost)
+	{
+		ArgumentNullException.ThrowIfNull(blogPost, nameof(blogPost));
+		var content = JsonSerializer.Serialize(blogPost);
+		var data = new StringContent(content, Encoding.UTF8, "application/json");
+		var result = await http.PutAsync("api/blogposts", data);
+		result.EnsureSuccessStatusCode();
+		int index = blogPostCache.FindIndex(
+			bp => blogPost.Id == blogPost.Id && blogPost.Author == blogPost.Author);
+		if (index>=0) {
+			blogPostCache[index] = blogPost;
+		}
+		blogPostSummaryService.Replace(blogPost);
 	}
 }
