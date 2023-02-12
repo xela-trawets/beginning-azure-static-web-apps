@@ -1,0 +1,33 @@
+﻿@page "/blogposts/{author}/{id}"
+@page "/blogposts/{id}/edit"
+@using Microsoft.AspNetCore.Authorization
+@using Models
+@inject BlogPostService service
+@inject NavigationManager navigationManager
+
+
+<h3>EditBlogPost</h3>
+
+@code {
+	private BlogPost? blogPost;
+	private string mode = "edit";
+	private string tags = string.Empty;
+	[Parameter]
+	public string? Id { get; set; }
+	[Parameter]
+	public string? Author { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		if (Id == "new") {
+			mode = "create";
+			blogPost = new();
+			return;
+		}
+		ArgumentNullException.ThrowIfNull(Author, nameof(Author));
+		if(!Guid.TryParse(Id,out Guid id))
+		{ throw new InvalidCastException(); }
+		blogPost = await service.GetBlogPost(id, Author);
+		tags = string.Join(", ", blogPost!.Tags);
+	}
+}

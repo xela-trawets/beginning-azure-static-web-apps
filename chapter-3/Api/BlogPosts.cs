@@ -119,7 +119,7 @@ WHERE c.Status = 2")]IEnumerable<BlogPost> BlogPosts, //case..
 				client.GetDatabase("SwaBlog")
 				.GetContainer("BlogContainer");
 			await container
-				.DeleteItemAsync<BlogPost>(id, PartitionKey(author));
+				.DeleteItemAsync<BlogPost>(id, new PartitionKey(author));
 			return NoContentResult();
 		}
 
