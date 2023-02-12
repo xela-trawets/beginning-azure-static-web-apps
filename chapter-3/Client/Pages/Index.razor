@@ -1,8 +1,14 @@
 ﻿@page "/"
 @inject BlogPostSummaryService service
+@inject HttpClient http
 @using Models
+@using StaticWebAppAuthentication.Models
+@using System.Text.Json;
 
 <PageTitle>Index</PageTitle>
+<div>
+	@UserInfo
+</div>
 @if (service.Summaries is null) {
 	<div>Loading...</div>
 }
@@ -25,9 +31,18 @@ else {
 		service.Summaries?
 		.OrderByDescending(bps => bps.PublishedDate)
 		.FirstOrDefault();
+	private string UserInfo = "";
+
 	protected override async Task OnInitializedAsync()
 	{
-		await service.LoadBlogPostSummaries();
+		UserInfo = await GetUserInfo();
+		//await service.LoadBlogPostSummaries();
+	}
+	private async Task<string> GetUserInfo()
+	{
+		var data = await http.GetFromJsonAsync<AuthenticationData>("/.auth/me");
+		var clientPrincipal = data?.ClientPrincipal ?? new ClientPrincipal();
+		return JsonSerializer.Serialize(clientPrincipal, new JsonSerializerOptions() { WriteIndented = true });
 	}
 }
 
