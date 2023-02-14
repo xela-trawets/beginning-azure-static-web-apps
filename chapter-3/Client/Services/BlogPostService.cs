@@ -62,4 +62,16 @@ public class BlogPostService
 		}
 		blogPostSummaryService.Replace(blogPost);
 	}
+	public async Task Delete(Guid id, string author)
+	{
+		var result=await http.DeleteAsync($"/api/blogposts/{author}/{id}");
+		result.EnsureSuccessStatusCode();
+		var blogPost = blogPostCache.FirstOrDefault(summary => summary.Id == id
+		&&
+		summary.Author == author);
+		if(blogPost is not null) {
+			blogPostCache.Remove(blogPost);
+		}
+		blogPostSummaryService.Remove(id, author);
+	}
 }

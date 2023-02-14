@@ -37,4 +37,9 @@ else {
 	{
 		blogPost = await service.GetBlogPost(Id, Author);
 	}
+	private async void Delete()
+	{
+		await service.Delete(blogPost!.Id, blogPost!.Author);
+		navigationManager.NavigateTo("blogposts");
+	}
 }

@@ -57,4 +57,13 @@ public class BlogPostSummaryService
 			Summaries = await http.GetFromJsonAsync<List<BlogPost>>("api/blogposts");
 		}
 	}
+	public void Remove(Guid id, string author)
+	{
+		if (Summaries == null ||
+			!Summaries.Any(summary =>
+			summary.Id == id && summary.Author == author)) { return; }
+		var summary = Summaries.First(summary =>
+			summary.Id == id && summary.Author == author);
+		Summaries.Remove(summary);
+	}
 }
