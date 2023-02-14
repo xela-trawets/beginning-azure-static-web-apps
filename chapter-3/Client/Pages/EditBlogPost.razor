@@ -1,4 +1,4 @@
-﻿@page "/blogposts/{author}/{id}"
+﻿@page "/blogposts/{author}/{id}/edit"
 @page "/blogposts/{id}/edit"
 @using Microsoft.AspNetCore.Authorization
 @using Models
@@ -7,14 +7,15 @@
 
 
 <h3>EditBlogPost</h3>
-<AutorizeView Roles = "admin">
+<AutorizeView Roles="admin">
 	<Authorized>
-		@if(blogPost is null) {
+		@if (blogPost is null) {
 			<div>Loading...</div>
-			<EditForm
-			Model="blogPost"
-			OnValidSubmit="Save"
-			Context="EditContext">
+		}
+		else {
+			<EditForm Model="blogPost"
+				  OnValidSubmit="Save"
+				  Context="EditContext">
 				<div>
 					<label>Title</label>
 					<div><InputText @bind-Value=blogPost.Title /></div>
@@ -24,11 +25,13 @@
 					<div><InputText @bind-Value=tags /></div>
 				</div>
 				<div>
-				<label>Post</label>
-				<div><InputTextArea @bind-Value=blogPost.BlogPostMarkdown
-					style=" width:100%; height: 60vh; min-height: 100px;"/></div>
-			</div>
-			<button type="submit">Save</button>
+					<label>Post</label>
+					<div>
+						<InputTextArea @bind-Value=blogPost.BlogPostMarkdown
+			   style=" width:100%; height: 60vh; min-height: 100px;" />
+					</div>
+				</div>
+				<button type="submit">Save</button>
 			</EditForm>
 		}
 	</Authorized>
@@ -51,16 +54,15 @@
 			return;
 		}
 		ArgumentNullException.ThrowIfNull(Author, nameof(Author));
-		if(!Guid.TryParse(Id,out Guid id))
-		{ throw new InvalidCastException(); }
+		if (!Guid.TryParse(Id, out Guid id)) { throw new InvalidCastException(); }
 		blogPost = await service.GetBlogPost(id, Author);
 		tags = string.Join(", ", blogPost!.Tags);
 	}
-	private string[] CleanTags(string []Tags)
+	private string[] CleanTags(string[] Tags)
 	{
 		return Tags.ToList()
 		.Select(tag => tag.Trim())
-		.Where(tag=>!string.IsNullOrWhiteSpace(tag))
+		.Where(tag => !string.IsNullOrWhiteSpace(tag))
 		.ToArray();
 	}
 	private async void Save()
