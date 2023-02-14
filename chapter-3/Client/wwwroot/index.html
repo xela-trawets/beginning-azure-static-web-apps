@@ -20,6 +20,14 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.doStuff = () => {
+            document.getElementById("json-box").innerHTML = "Hi there, Ally";
+        }
+    </script>
+    <!--   <script>document.getElementById("json-box").innerHTML = '<pre>' + JSON.stringify('{ "IdentityProvider": "github", "UserId": "ca470479629048968a95b2097a2e4698", "UserDetails": "xela - trawets", "UserRoles": [ "admin", "anonymous", "authenticated" ] }', null, 2) + '</pre>';</script>-->
+    <!--    <script>document.getElementById("json-box").innerHTML = '<pre>' + JSON.stringify(JSON.parse(@UserInfo), null, 2) + '</pre>';</script>-->
+
 </body>
 
 </html>

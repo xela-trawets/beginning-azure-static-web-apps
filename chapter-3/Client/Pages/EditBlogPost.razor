@@ -7,6 +7,32 @@
 
 
 <h3>EditBlogPost</h3>
+<AutorizeView Roles = "admin">
+	<Authorized>
+		@if(blogPost is null) {
+			<div>Loading...</div>
+			<EditForm
+			Model="blogPost"
+			OnValidSubmit="Save"
+			Context="EditContext">
+				<div>
+					<label>Title</label>
+					<div><InputText @bind-Value=blogPost.Title /></div>
+				</div>
+				<div>
+					<label>Tags</label>
+					<div><InputText @bind-Value=tags /></div>
+				</div>
+				<div>
+				<label>Post</label>
+				<div><InputTextArea @bind-Value=blogPost.BlogPostMarkdown
+					style=" width:100%; height: 60 vh; min-height: 100px;"/></div>
+			</div>
+			<button type="submit">Save</button>
+			</EditForm>
+		}
+	</Authorized>
+</AutorizeView>"
 
 @code {
 	private BlogPost? blogPost;
@@ -29,5 +55,24 @@
 		{ throw new InvalidCastException(); }
 		blogPost = await service.GetBlogPost(id, Author);
 		tags = string.Join(", ", blogPost!.Tags);
+	}
+	private string[] CleanTags(string []Tags)
+	{
+		return Tags.ToList()
+		.Select(tag => tag.Trim())
+		.Where(tag=>!string.IsNullOrWhiteSpace(tag))
+		.ToArray();
+	}
+	private async void Save()
+	{
+		blogPost!.Tags = CleanTags(tags.Split(','));
+		if (mode == "create") {
+			blogPost.PublishedDate = DateTime.Now;
+			blogPost = await service.Create(blogPost);
+		}
+		else {
+			await service.Update(blogPost);
+		}
+		navigationManager.NavigateTo($"blogposts/{blogPost.Author}/{blogPost.Id}");
 	}
 }
