@@ -7,6 +7,13 @@
 	 <div>Loading...</div>
 }
 else {
+	<AuthorizeView Roles = "admin">
+		<Authorized>
+			<a href="blogposts/@blogPost.Author/@blogPost.Id/edit">Edit</a>
+			<a href="javascript:;" onclick="Delete">Delete</a>
+		</Authorized>
+	</AuthorizeView>
+
 	<article>
 		<h1>@blogPost.Title</h1>
 		<h2>@blogPost.Author</h2>

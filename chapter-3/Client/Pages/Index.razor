@@ -18,7 +18,7 @@
 <div>
 	<pre><code id="json-box" @ref=jsonboxref>
 	Before
-		@*@UserInfo*@
+			@*@UserInfo*@
 </code></pre>
 </div>
 @if (service.Summaries is null) {
@@ -47,11 +47,9 @@ else {
 
 	protected override async Task OnInitializedAsync()
 	{
-		//UserInfo = await GetUserInfo();
+		UserInfo = await GetUserInfo();
 		//UserInfo = "{ \"IdentityProvider\": \"github\", \n \"UserId\": \"ca470479629048968a95b2097a2e4698\", \"UserDetails\": \"xela-trawets\", \"UserRoles\": [ \"admin\", \"anonymous\", \"authenticated\" ] }";
-		//		await service.LoadBlogPostSummaries();
-		
-		await JS.InvokeVoidAsync("doStuff");
+		await service.LoadBlogPostSummaries();
 	}
 	private async Task<string> GetUserInfo()
 	{
