@@ -1,26 +1,11 @@
 ﻿@page "/"
 
 @using Models
-@using StaticWebAppAuthentication.Models
-@using System.Text.Json;
 
 @inject BlogPostSummaryService service
-@inject HttpClient http
-@inject IJSRuntime JS
 
 <PageTitle>Index</PageTitle>
-<div>
-	@*@UserInfo*@
-</div>
-<div>
-	@*JSON.stringify(JSON.parse(@UserInfo),null,4)*@
-</div>
-<div>
-	<pre><code id="json-box" @ref=jsonboxref>
-	Before
-			@*@UserInfo*@
-</code></pre>
-</div>
+
 @if (service.Summaries is null) {
 	<div>Loading...</div>
 }
@@ -37,25 +22,16 @@ else {
 		}
 	</div>
 }
+
 @code {
 	private BlogPost? Summary =>
 		service.Summaries?
 		.OrderByDescending(bps => bps.PublishedDate)
 		.FirstOrDefault();
-	private string UserInfo = "";
-	private ElementReference jsonboxref;
 
 	protected override async Task OnInitializedAsync()
 	{
-		UserInfo = await GetUserInfo();
-		//UserInfo = "{ \"IdentityProvider\": \"github\", \n \"UserId\": \"ca470479629048968a95b2097a2e4698\", \"UserDetails\": \"xela-trawets\", \"UserRoles\": [ \"admin\", \"anonymous\", \"authenticated\" ] }";
 		await service.LoadBlogPostSummaries();
-	}
-	private async Task<string> GetUserInfo()
-	{
-		var data = await http.GetFromJsonAsync<AuthenticationData>("/.auth/me");
-		var clientPrincipal = data?.ClientPrincipal ?? new ClientPrincipal();
-		return JsonSerializer.Serialize(clientPrincipal, new JsonSerializerOptions() { WriteIndented = true });
 	}
 }
 
