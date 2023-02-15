@@ -1,15 +1,20 @@
 ﻿@page "/blogposts"
+@using StaticWebAppAuthentication.Client;
+@using System.Text.Json;
 @inject BlogPostSummaryService service
 @inject NavigationManager navigationManager
+@inject AuthenticationStateProvider authenticationStateProvider
 <PageTitle>Blog posts</PageTitle>
 <h1>Blog Posts</h1>
 
-<AuthorizeView Roles="admin">
+<AuthorizeView Roles = "admin">
 	<Authorized>
 		<a href="blogposts/new/edit">Create</a>
 	</Authorized>
 </AuthorizeView>
-
+<div>
+	@info
+</div>
 @if (service.Summaries is null) {
 	<div>Loading...</div>
 }
@@ -17,17 +22,17 @@ else {
 	foreach (var blogPostSummary in service.Summaries.OrderByDescending(bps => bps.PublishedDate)) {
 		<BlogPostSummary Summary="@blogPostSummary" />
 		@*		<article @onclick="()=>Navigate(blogPostSummary.Id,blogPostSummary.Author)">
-			<h2>@blogPostSummary.Title</h2>
-			<div>
-				@foreach (var tag in blogPostSummary.Tags) {
-					<em>@tag, </em>
-					<div>
-						@((MarkupString)Markdown.ToHtml(blogPostSummary.BlogPostMarkdown))
-					</div>
-				}
-			</div>
-		</article>
-*@
+	<h2>@blogPostSummary.Title</h2>
+	<div>
+	@foreach (var tag in blogPostSummary.Tags) {
+	<em>@tag, </em>
+	<div>
+	@((MarkupString)Markdown.ToHtml(blogPostSummary.BlogPostMarkdown))
+	</div>
+	}
+	</div>
+	</article>
+	*@
 	}
 }
 
@@ -37,4 +42,14 @@ else {
 		await service.LoadBlogPostSummaries();
 	}
 	//void Navigate(Guid id, string author) => navigationManager.NavigateTo($"/blogposts/{author}/{id}");
+	string info
+	{
+		get
+		{
+			//var thingTask = (authenticationStateProvider as StaticWebAppsAuthenticationStateProvider).GetClientPrincipal();
+			//var thing = thingTask.Result();
+			//var txt = JsonSerializer.Serialize(thing);
+			return "testing stuff";
+		}
+	}
 }

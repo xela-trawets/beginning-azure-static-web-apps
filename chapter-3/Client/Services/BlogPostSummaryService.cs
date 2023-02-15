@@ -56,7 +56,7 @@ public class BlogPostSummaryService
 		if (Summaries == null) {
 
 			//Summaries = await http.GetFromJsonAsync<List<BlogPost>>("http://localhost:7071/api/blogposts");
-			var request = new HttpRequestMessage(HttpMethod.Get, "/api/blogposts");
+			var request = new HttpRequestMessage(HttpMethod.Get, "api/blogposts");
 			request.SetBrowserRequestMode(BrowserRequestMode.NoCors);
 			//request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional
 			request.Headers.Add("Accept", "application/json");

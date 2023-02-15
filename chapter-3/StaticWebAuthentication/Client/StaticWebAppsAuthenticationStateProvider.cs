@@ -17,7 +17,7 @@ public class StaticWebAppsAuthenticationStateProvider : AuthenticationStateProvi
 	private readonly HttpClient http;
 	public StaticWebAppsAuthenticationStateProvider(HttpClient httpClient)
 	{
-		this.http = new HttpClient();// ?? throw new ArgumentNullException();
+		this.http = new HttpClient() { BaseAddress = new Uri( "http://localhost:4280" )};// ?? throw new ArgumentNullException();
 	}
 	public static ClaimsPrincipal GetClaimsFromClientPrincipal(ClientPrincipal principal)
 	{
@@ -28,7 +28,7 @@ public class StaticWebAppsAuthenticationStateProvider : AuthenticationStateProvi
 		return new ClaimsPrincipal(identity);
 	}
 
-	private async Task<ClientPrincipal> GetClientPrincipal()
+	public async Task<ClientPrincipal> GetClientPrincipal()
 	{
 		var data = await http.GetFromJsonAsync<AuthenticationData>("/.auth/me");
 		var clientPrincipal = data?.ClientPrincipal ?? new ClientPrincipal();
