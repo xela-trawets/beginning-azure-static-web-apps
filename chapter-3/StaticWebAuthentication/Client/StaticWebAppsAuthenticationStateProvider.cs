@@ -17,7 +17,7 @@ public class StaticWebAppsAuthenticationStateProvider : AuthenticationStateProvi
 	private readonly HttpClient http;
 	public StaticWebAppsAuthenticationStateProvider(HttpClient httpClient)
 	{
-		this.http = httpClient ?? throw new ArgumentNullException();
+		this.http = new HttpClient();// ?? throw new ArgumentNullException();
 	}
 	public static ClaimsPrincipal GetClaimsFromClientPrincipal(ClientPrincipal principal)
 	{

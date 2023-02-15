@@ -3,6 +3,8 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
+using Microsoft.AspNetCore.Components;
 
 namespace Client.Services;
 
@@ -54,7 +56,16 @@ public class BlogPostSummaryService
 		if (Summaries == null) {
 
 			//Summaries = await http.GetFromJsonAsync<List<BlogPost>>("http://localhost:7071/api/blogposts");
-			Summaries = await http.GetFromJsonAsync<List<BlogPost>>("api/blogposts");
+			var request = new HttpRequestMessage(HttpMethod.Get, "/api/blogposts");
+			request.SetBrowserRequestMode(BrowserRequestMode.NoCors);
+			//request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional
+			request.Headers.Add("Accept", "application/json");
+			var response = await http.SendAsync(request);
+			//if (!response.IsSuccessStatusCode) { navigationManager.NavigateTo("404"); return null; }
+			Summaries = await response.Content.ReadFromJsonAsync<List<BlogPost>>();
+			//if (blogPost is null) { navigationManager.NavigateTo("404"); return null; }
+			//Summaries = await http.GetFromJsonAsync<List<BlogPost>>("/api/blogposts");
+			foreach (var s in Summaries) { s.Tags ??= Array.Empty<string>(); }
 		}
 	}
 	public void Remove(Guid id, string author)
